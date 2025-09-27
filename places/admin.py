@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import Place, Image
 from django.utils.html import format_html
+from adminsortable2.admin import SortableTabularInline
+from adminsortable2.admin import SortableAdminBase
 
 
 def headshot_image(obj):
@@ -13,7 +15,7 @@ def headshot_image(obj):
         return error
 
 
-class AdminInline(admin.TabularInline):
+class AdminInline(SortableTabularInline):
     model = Image
     fields = (('img', headshot_image))
     verbose_name = 'фотографии'
@@ -25,10 +27,11 @@ class ImageAdmin(admin.ModelAdmin):
     list_display = ('title',)
     raw_id_fields = ['place',]
     readonly_fields = [headshot_image,]
+    ordering = ['index']
 
 
 @admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
+class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     list_display = ('title',)
     inlines = [
         AdminInline

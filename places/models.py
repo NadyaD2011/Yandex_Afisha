@@ -18,5 +18,8 @@ class Image(models.Model):
     title = models.CharField(max_length=200, verbose_name='название картинки')
     img = models.ImageField(verbose_name='картинка')
 
+    class Meta:
+        ordering = ['index']
+
     def __str__(self) -> str:
         return f'{self.place}'
