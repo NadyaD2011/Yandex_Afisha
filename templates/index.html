@@ -38,7 +38,8 @@
       width: 100px;
     }
   </style>
-  <script id="places-geojson" type="application/json">
+  {{ place|json_script:"places-geojson" }}
+  <!-- <script id="places-geojson" type="application/json">
     {
       "type": "FeatureCollection",
       "features": [
@@ -68,7 +69,7 @@
         }
       ]
     }
-  </script>
+  </script> -->
 
   <script id="app-template" type="text/template">
     <div v-bind:class="{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}">

@@ -1,16 +1,30 @@
 from django.contrib import admin
 from .models import Place, Image
+from django.utils.html import format_html
+
+
+def headshot_image(obj):
+    try:
+        return format_html(
+            '<img src="{}" style="max-height: 200px;">',
+            obj.img.url
+        )
+    except Exception as error:
+        return error
 
 
 class AdminInline(admin.TabularInline):
     model = Image
-    fields = ['img', 'index', 'title']
+    fields = (('img', headshot_image))
     verbose_name = 'фотографии'
+    readonly_fields = [headshot_image,]
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('title',)
+    raw_id_fields = ['place',]
+    readonly_fields = [headshot_image,]
 
 
 @admin.register(Place)

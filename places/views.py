@@ -36,7 +36,7 @@ def open_map(request):
           },
           "properties": {
             "title": place.title,
-            "placeId": "moscow_legends",
+            "placeId": place.id,
             'description_short': place.description_short,
             'description_long': place.description_long,
             "coordinates": {
@@ -51,7 +51,7 @@ def open_map(request):
     context = {
         'places': {
             'type': "FeatureCollection",
-            'features': features
+            'features': features,
         }
     }
 
