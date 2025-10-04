@@ -13,8 +13,8 @@ def parse_place_details(request, place_id):
     payload = {
         'title': place.title,
         'imgs': images_urls,
-        'short_description': place.description_short,
-        'long_description': place.description_long,
+        'description_short': place.description_short,
+        'description_long': place.description_long,
         'coordinates': {
             'lng': float(place.lng),
             'lat': float(place.lat),
@@ -32,16 +32,16 @@ def open_map(request):
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [place.lat, place.lng]
+            "coordinates": [place.lng, place.lat]
           },
           "properties": {
             "title": place.title,
             "placeId": place.id,
-            'description_short': place.description_short,
-            'description_long': place.description_long,
+            'description_short': place.description_short or '',
+            'description_long': place.description_long or '',
             "coordinates": {
-                "lng": place.lng,
-                "lat": place.lat
+                "lat": place.lat,
+                "lng": place.lng
             },
             'detailsUrl': reverse('parse_place_details', kwargs={'place_id': place.id})
           }

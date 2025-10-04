@@ -8,11 +8,13 @@ from adminsortable2.admin import SortableAdminBase
 def headshot_image(obj):
     try:
         return format_html(
-            '<img src="{}" style="max-height: 200px;">',
+            '<img src="{}" style="max-height: 200px; max-width:300px; ">',
             obj.img.url
         )
     except Exception as error:
-        return error
+        return format_html(
+            '<span style="color: red;">Ошибка загрузки</span>'
+            )
 
 
 class AdminInline(SortableTabularInline):

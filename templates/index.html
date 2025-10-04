@@ -38,38 +38,8 @@
       width: 100px;
     }
   </style>
-  {{ place|json_script:"places-geojson" }}
-  <!-- <script id="places-geojson" type="application/json">
-    {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.62, 55.793676]
-          },
-          "properties": {
-            "title": "«Легенды Москвы",
-            "placeId": "moscow_legends",
-            "detailsUrl": "{% static '/places/moscow_legends.json' %}"
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "{% static '/places/roofs24.json' %}"
-          }
-        }
-      ]
-    }
-  </script> -->
+
+  {{ places|json_script:"places-geojson"}}
 
   <script id="app-template" type="text/template">
     <div v-bind:class="{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}">
@@ -88,9 +58,11 @@
 
         <img v-if="mainPhotoSrc" v-bind:src="mainPhotoSrc" class="d-block shadow mb-3 rounded" v-bind:alt="selectedPlace.title">
 
-        <h5 class="mb-3">{{ selectedPlace.title }}</h5>
+        {% verbatim %}
+          <h5 class="mb-3">{{ selectedPlace.title }}</h5>
 
-        <p>{{ selectedPlace.short_description }}</p>
+          <p>{{ selectedPlace.description_short }}</p>
+        {% endverbatim %}
 
         <div id="place-photos" class="carousel slide mb-3 shadow" data-ride="carousel" data-interval="5000">
           <ol class="carousel-indicators">
@@ -117,7 +89,7 @@
           </template>
         </div>
 
-        <div v-html="selectedPlace.long_description"></div>
+        <div v-html="selectedPlace.description_long"></div>
       </div>
     </div>
   </script>
@@ -301,8 +273,8 @@
           title: data.title,
           placeId: placeId,
           imgs: data.imgs || [],
-          short_description: data.description_short,
-          long_description: data.description_long,
+          description_short: data.description_short,
+          description_long: data.description_long,
         };
       } finally {
         if (sidebarApp.loadingPlaceId == placeId){
