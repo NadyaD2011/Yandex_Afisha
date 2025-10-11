@@ -5,7 +5,7 @@ from django.db import models
 class Place(models.Model):
     title = models.CharField(max_length=200, verbose_name='название', unique=True)
     short_description = models.TextField(verbose_name='краткое описание', blank=True)
-    long_description = HTMLField(verbose_name='полное описание')
+    long_description = HTMLField(verbose_name='полное описание', blank=True)
     lat = models.DecimalField(max_digits=50, decimal_places=20, verbose_name='широта')
     lng = models.DecimalField(max_digits=50,  decimal_places=20, verbose_name='долгота')
 
