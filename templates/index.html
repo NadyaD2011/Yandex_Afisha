@@ -61,7 +61,7 @@
         {% verbatim %}
           <h5 class="mb-3">{{ selectedPlace.title }}</h5>
 
-          <p>{{ selectedPlace.description_short }}</p>
+          <p>{{ selectedPlace.short_description }}</p>
         {% endverbatim %}
 
         <div id="place-photos" class="carousel slide mb-3 shadow" data-ride="carousel" data-interval="5000">
@@ -89,7 +89,7 @@
           </template>
         </div>
 
-        <div v-html="selectedPlace.description_long"></div>
+        <div v-html="selectedPlace.long_description"></div>
       </div>
     </div>
   </script>
@@ -273,8 +273,8 @@
           title: data.title,
           placeId: placeId,
           imgs: data.imgs || [],
-          description_short: data.description_short,
-          description_long: data.description_long,
+          short_description: data.short_description,
+          long_description: data.long_description,
         };
       } finally {
         if (sidebarApp.loadingPlaceId == placeId){

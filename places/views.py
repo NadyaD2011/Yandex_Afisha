@@ -13,8 +13,8 @@ def parse_place_details(request, place_id):
     payload = {
         'title': place.title,
         'imgs': images_urls,
-        'description_short': place.description_short,
-        'description_long': place.description_long,
+        'short_description': place.short_description,
+        'long_description': place.long_description,
         'coordinates': {
             'lng': float(place.lng),
             'lat': float(place.lat),
@@ -37,8 +37,8 @@ def open_map(request):
           "properties": {
             "title": place.title,
             "placeId": place.id,
-            'description_short': place.description_short or '',
-            'description_long': place.description_long or '',
+            'short_description': place.short_description or '',
+            'long_description': place.long_description or '',
             "coordinates": {
                 "lat": place.lat,
                 "lng": place.lng
