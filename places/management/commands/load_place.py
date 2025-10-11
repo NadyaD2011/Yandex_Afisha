@@ -3,17 +3,8 @@ from django.core.files.base import ContentFile
 from decimal import Decimal
 
 import requests
-import codecs
-import json
 
 from places.models import Place, Image
-
-
-def get_json_info_by_file(path):
-    with codecs.open(path, 'r', 'utf_8_sig') as file:
-        data = file.read()
-    parsed_place = json.loads(data)
-    return parsed_place
 
 
 def get_json_info_by_url(url):
