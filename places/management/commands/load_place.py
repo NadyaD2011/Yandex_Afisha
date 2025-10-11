@@ -14,27 +14,27 @@ def get_json_info_by_url(url):
 
 
 def parse_place_with_images(url):
-    place = get_json_info_by_url(url)
-    parsed_place = Place.objects.get_or_create(
-        title=place['title'],
-        defaults={
-            'short_description': place['short_description'],
-            'long_description': place['long_description'],
-            'lat': Decimal(place['coordinates']['lat']),
-            'lng': Decimal(place['coordinates']['lng']),
-        }
-    )[0]
-    for img_number, img_url in enumerate(place['imgs']):
-        try:
+    try:
+        place = get_json_info_by_url(url)
+        parsed_place = Place.objects.get_or_create(
+            title=place['title'],
+            defaults={
+                'short_description': place['short_description'],
+                'long_description': place['long_description'],
+                'lat': Decimal(place['coordinates']['lat']),
+                'lng': Decimal(place['coordinates']['lng']),
+            }
+        )[0]
+        for img_number, img_url in enumerate(place['imgs']):
             response = requests.get(img_url)
             response.raise_for_status()
             img_content = ContentFile(response.content)
             img_name = '{} {}.jpg'.format(img_number+1, parsed_place.title)
             image_instance = Image(place=parsed_place)
             image_instance.img.save(img_name, img_content, save=True)
-        except requests.exceptions.HTTPError or\
-                requests.exceptions.ConnectionError:
-            pass
+    except requests.exceptions.HTTPError or\
+            requests.exceptions.ConnectionError:
+        pass
 
 
 class Command(BaseCommand):
