@@ -29,8 +29,14 @@ def parse_place_with_images(url):
             response = requests.get(img_url)
             response.raise_for_status()
             img_content = ContentFile(response.content)
-            img_name = '{} {}.jpg'.format(img_number+1, parsed_place.title)
-            image_instance = Image(place=parsed_place)
+            img_name = '{} {}.jpg'.format(img_number + 1, parsed_place.title)
+            existing_image = Image.objects.filter(img_url=img_url).first()
+            if existing_image:
+                continue
+            image_instance = Image(
+                place=parsed_place,
+                img_url=img_url
+            )
             image_instance.img.save(img_name, img_content, save=True)
     except requests.exceptions.HTTPError or\
             requests.exceptions.ConnectionError:
