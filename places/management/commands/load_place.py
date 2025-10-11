@@ -1,13 +1,10 @@
-from decimal import Decimal
-from django.conf import settings
-from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
-from django.db.models import Q
-import requests
+from django.core.files.base import ContentFile
+from decimal import Decimal
 
+import requests
 import codecs
 import json
-import os
 
 from places.models import Place, Image
 

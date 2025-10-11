@@ -1,5 +1,5 @@
-from django.db import models
 from tinymce.models import HTMLField
+from django.db import models
 
 
 class Place(models.Model):

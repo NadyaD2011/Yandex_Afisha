@@ -1,9 +1,9 @@
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.template import loader
-from places.models import Place, Image
-
-from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+
+from places.models import Place, Image
 
 
 def parse_place_details(request, place_id):
