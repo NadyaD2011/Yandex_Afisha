@@ -6,7 +6,7 @@ from django.contrib import admin
 from .models import Place, Image
 
 
-def headshot_image(obj):
+def output_screenshots(obj):
     try:
         return format_html(
             '<img src="{}" style="max-height: 200px; max-width:300px; ">',
@@ -20,16 +20,16 @@ def headshot_image(obj):
 
 class AdminInline(SortableTabularInline):
     model = Image
-    fields = (('img', headshot_image))
+    fields = (('img', output_screenshots))
     verbose_name = 'фотографии'
-    readonly_fields = [headshot_image,]
+    readonly_fields = [output_screenshots,]
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('title',)
     raw_id_fields = ['place',]
-    readonly_fields = [headshot_image,]
+    readonly_fields = [output_screenshots,]
     ordering = ['index']
 
 
