@@ -21,11 +21,11 @@ def parse_place_with_images(url):
                 'lng': Decimal(place['coordinates']['lng']),
             }
         )[0]
-        for img_number, img_url in enumerate(place['imgs']):
+        for img_number, img_url in enumerate(place['imgs'], start=1):
             response = requests.get(img_url)
             response.raise_for_status()
             img_content = ContentFile(response.content)
-            img_name = '{} {}.jpg'.format(img_number + 1, parsed_place.title)
+            img_name = '{} {}.jpg'.format(img_number, parsed_place.title)
             existing_image = Image.objects.filter(img_url=img_url).first()
             if existing_image:
                 continue
