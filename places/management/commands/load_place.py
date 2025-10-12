@@ -14,7 +14,7 @@ def save_img(img_url, img_number, parsed_place):
         img_content = ContentFile(response.content)
         img_name = '{} {}.jpg'.format(img_number, parsed_place.title)
         existing_image = Image.objects.filter(img=img_url).first()
-        if not(existing_image):
+        if not existing_image:
             image_instance = Image(
                 place=parsed_place,
                 img=img_url,
