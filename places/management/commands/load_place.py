@@ -17,7 +17,8 @@ def save_img(img_url, img_number, parsed_place):
         if not(existing_image):
             image_instance = Image(
                 place=parsed_place,
-                img=img_url
+                img=img_url,
+                index=img_number
             )
             image_instance.img.save(img_name, img_content, save=True)
     except requests.exceptions.HTTPError or\
