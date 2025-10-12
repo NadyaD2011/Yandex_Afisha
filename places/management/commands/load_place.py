@@ -14,17 +14,13 @@ def save_img(img_url, img_number, parsed_place):
 
         response = requests.get(img_url)
         response.raise_for_status()
-        img_content = ContentFile(response.content)
+        img_content = ContentFile(response.content, f"{img_number + 1} {parsed_place.title}.jpg")
 
-        image_instance = Image(
+        Image.objects.create(
             place=parsed_place,
             original_url=img_url,
-            index=img_number
-        )
-        image_instance.img.save(
-            f"{img_number + 1} {parsed_place.title}.jpg",
-            img_content,
-            save=True
+            index=img_number,
+            img=img_content
         )
     except requests.exceptions.HTTPError or\
             requests.exceptions.ConnectionError:
