@@ -12,6 +12,9 @@ def output_screenshots(obj):
             '<img src="{}" style="max-height: 200px; max-width:300px; ">',
             obj.img.url
         )
+    return format_html(
+        '<span style="color: red;">Ошибка загрузки</span>'
+        )
 
 
 class AdminInline(SortableTabularInline):
