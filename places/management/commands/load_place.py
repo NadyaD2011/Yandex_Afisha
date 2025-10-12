@@ -22,7 +22,7 @@ def save_img(img_url, img_number, parsed_place):
             image_instance.img.save(img_name, img_content, save=True)
     except requests.exceptions.HTTPError or\
             requests.exceptions.ConnectionError:
-        return  
+        print('Произошла ошибка')
 
 
 def parse_place_with_images(url):
@@ -43,7 +43,7 @@ def parse_place_with_images(url):
             save_img(img_url, img_number, parsed_place)
     except requests.exceptions.HTTPError or\
             requests.exceptions.ConnectionError:
-        pass
+        print('Произошла ошибка')
 
 
 class Command(BaseCommand):
