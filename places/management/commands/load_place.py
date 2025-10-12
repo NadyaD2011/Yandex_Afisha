@@ -7,15 +7,11 @@ import requests
 from places.models import Place, Image
 
 
-def get_json_info_by_url(url):
-    response = requests.get(url)
-    response.raise_for_status()
-    return response.json()
-
-
 def parse_place_with_images(url):
     try:
-        place = get_json_info_by_url(url)
+        response = requests.get(url)
+        response.raise_for_status()
+        place = response.json()
         parsed_place = Place.objects.get_or_create(
             title=place['title'],
             defaults={
