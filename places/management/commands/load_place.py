@@ -15,8 +15,8 @@ def parse_place_with_images(url):
         parsed_place = Place.objects.get_or_create(
             title=place['title'],
             defaults={
-                'short_description': place['short_description'],
-                'long_description': place['long_description'],
+                'short_description': place['description_short'],
+                'long_description': place['description_long'],
                 'lat': Decimal(place['coordinates']['lat']),
                 'lng': Decimal(place['coordinates']['lng']),
             }
@@ -26,12 +26,12 @@ def parse_place_with_images(url):
             response.raise_for_status()
             img_content = ContentFile(response.content)
             img_name = '{} {}.jpg'.format(img_number, parsed_place.title)
-            existing_image = Image.objects.filter(img_url=img_url).first()
+            existing_image = Image.objects.filter(img=img_url).first()
             if existing_image:
                 continue
             image_instance = Image(
                 place=parsed_place,
-                img_url=img_url
+                img=img_url
             )
             image_instance.img.save(img_name, img_content, save=True)
     except requests.exceptions.HTTPError or\
