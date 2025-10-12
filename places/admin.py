@@ -27,7 +27,6 @@ class AdminInline(SortableTabularInline):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('title',)
     raw_id_fields = ['place',]
     readonly_fields = [output_screenshots,]
     ordering = ['index']
