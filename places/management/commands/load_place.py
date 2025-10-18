@@ -18,7 +18,6 @@ def save_img(img_url, img_number, parsed_place):
 
         Image.objects.create(
             place=parsed_place,
-            original_url=img_url,
             index=img_number,
             img=img_content
         )
